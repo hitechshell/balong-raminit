@@ -1,8 +1,3 @@
-
-# include the define at the top
-include $(BALONG_TOPDIR)/build/scripts/make_base.mk
-
-#CROSS_COMPILE	?= $(OBB_ANDROID_DIR)/prebuilts/gcc/linux-x86/arm/arm-linux-androideabi-4.6/bin/arm-linux-androideabi-
 CC		= $(CROSS_COMPILE)gcc
 AR    	= $(CROSS_COMPILE)ar
 AS		= $(CROSS_COMPILE)as
@@ -18,7 +13,7 @@ CFILES 	= main.c
 
 SFILES	= 
 
-CFLAGS += -I$(BALONG_TOPDIR)/modem/config/product/$(OBB_PRODUCT_NAME)/config
+CFLAGS += -I./config
 
 ifeq ($(strip $(CFG_BSP_CONFIG_V7R2_ASIC)),YES)
 CFILES	+= mddrc_v7r2_asic.c
@@ -84,11 +79,7 @@ endif
 
 
 OBC_LOCAL_INC_DIR  := \
-	$(BSP_MCORE_DIR)/boot \
-	$(BALONG_TOPDIR)/modem/config/product/$(OBB_PRODUCT_NAME)/config \
-	$(BALONG_TOPDIR)/modem/platform/$(CFG_PLATFORM)/soc \
-	$(BALONG_TOPDIR)/modem/include/drv \
-	$(BALONG_TOPDIR)/modem/drv/common/include
+	./include
 # include path
 FULL_SRC_INC_PATH  := $(foreach lib_inc_path, $(OBC_LOCAL_INC_DIR), -I$(lib_inc_path))
 
@@ -97,8 +88,6 @@ COBJFILES = $(subst .c,.o, $(CFILES))
 SOBJFILES = $(subst .s,.o, $(SFILES))	
 
 all:ramInit.bin
-	$(Q)mv -f ramInit.bin $(OBB_PRODUCT_DELIVERY_DIR)/lib/
-	$(Q)-rm -rf *.bin *.o *.elf
 
 ramInit.bin:ramInit.elf
 	$(Q)$(OBJCOPY) -O binary ramInit.elf ramInit.bin

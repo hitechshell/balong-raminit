@@ -1,5 +1,4 @@
 #include <soc_onchiprom.h>
-#include <hi_uart.h>
 #include "bio.h"
 
 #define STACK_TOP 0x1000FFD0
@@ -64,6 +63,33 @@ __attribute__ ((section("header"))) struct head_format head =
 	.copyright = COPYRIGHT,
 };
 
+#define HI_UART0_REGBASE_ADDR 0x90007000
+
+#define AMBA_UART_DR(base)	(*(volatile unsigned int *)((base) + 0x00))
+#define AMBA_UART_LCRH(base)	(*(volatile unsigned int *)((base) + 0x2c))
+#define AMBA_UART_CR(base)	(*(volatile unsigned int *)((base) + 0x30))
+#define AMBA_UART_LSR(base)	(*(volatile unsigned int *)((base) + 0x14))
+
+static inline void my_putc(int c)
+{
+	unsigned long base = HI_UART0_REGBASE_ADDR;
+
+	while (!(AMBA_UART_LSR(base) & 0x20));
+
+	AMBA_UART_DR(base) = c;
+}
+
+static void print_info(const char *ptr)
+{
+	char c;
+
+	while ((c = *ptr++) != '\0') {
+		if (c == '\n')
+			my_putc('\r');
+		my_putc(c);
+	}
+}
+
 int main()
 {
     mddrc_init();
@@ -74,35 +100,6 @@ int main()
     print_info("\r\nraminit ok");
     return 0;
 }
-#if 0
-void print_info(const void *pucBuffer)
-{
-    volatile unsigned int ulStrLen = 0x00;
-    volatile unsigned char *pucTmp = (unsigned char *)pucBuffer;
-    volatile unsigned int u32Loop;
-
-    while('\0' != *pucTmp++ )
-    {
-        ulStrLen++;
-    }
-    pucTmp = (unsigned char *)pucBuffer;
-    while(ulStrLen--)
-    {
-        /*check tx fifo is empty*/
-        u32Loop = 10000;
-        while(0x00 == (readl(UART0_BASE+UART_USR) & 0x04))
-        {
-            /* there is nothing we can do when timeout */
-            if(0 == --u32Loop)
-            {
-                return;
-            }
-        }
-        writel(*pucTmp, UART0_BASE + UART_THR);
-        pucTmp++;
-    }
-}
-#endif
 
 void nmi_handler(void)
 {
