@@ -9,7 +9,7 @@ CFLAGS	= -mcpu=cortex-m3 -mthumb -O2 -fno-builtin -nostartfiles -g -mlong-calls 
 
 ASMFLAGS = -mcpu=cortex-m3 -mthumb -D__ASSEMBLY__ -x assembler-with-cpp
 
-CFILES 	= main.c timer.c
+CFILES 	= main.c timer.c uart.c
 
 SFILES	= 
 
