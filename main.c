@@ -97,7 +97,7 @@ int main()
 	/* set auto enum flag */
 	writel(AUTO_ENUM_FLAG_VALUE, OCR_AUTO_ENUM_FLAG_ADDR);
 
-    print_info("\r\nraminit ok");
+    print_info("raminit ok\n");
     return 0;
 }
 
