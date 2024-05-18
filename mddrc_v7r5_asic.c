@@ -5,7 +5,6 @@
 #include <osl_bio.h>
 #include <hi_syscrg.h>
 #include <soc_memmap.h>
-#include <hi_uart.h>
 #include <bsp_dfs_training.h>
 
 #ifndef min

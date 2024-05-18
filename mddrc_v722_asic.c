@@ -5,7 +5,6 @@
 #include <osl_bio.h>
 #include <hi_syscrg.h>
 #include <soc_memmap.h>
-#include <hi_uart.h>
 #include <bsp_sram.h>
 
 static void calc_ddrc_dfs(void)
