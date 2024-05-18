@@ -9,11 +9,11 @@ CFLAGS	= -mcpu=cortex-m3 -mthumb -O2 -fno-builtin -nostartfiles -g -mlong-calls 
 
 ASMFLAGS = -mcpu=cortex-m3 -mthumb -D__ASSEMBLY__ -x assembler-with-cpp
 
-CFILES 	= main.c
+CFILES 	= main.c timer.c
 
 SFILES	= 
 
-CFLAGS += -I./config
+CFLAGS += -I./config -I.
 
 ifeq ($(strip $(CFG_BSP_CONFIG_V7R2_ASIC)),YES)
 CFILES	+= mddrc_v7r2_asic.c
