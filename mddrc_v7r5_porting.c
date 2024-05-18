@@ -4,7 +4,7 @@
 #include <soc_memmap.h>
 #include "product_config.h"
 #include <osl_types.h>
-#include <osl_bio.h>
+#include "bio.h"
 
 #define V7R5_PORTING        0x6950A100
 #define V7R5_ASIC           0x69500100

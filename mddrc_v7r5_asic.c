@@ -2,7 +2,7 @@
 
 #include <product_config.h>
 #include <osl_types.h>
-#include <osl_bio.h>
+#include "bio.h"
 #include <hi_syscrg.h>
 #include <soc_memmap.h>
 #include <bsp_dfs_training.h>

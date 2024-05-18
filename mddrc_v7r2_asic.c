@@ -4,7 +4,7 @@
 #include <soc_memmap.h>
 #include "product_config.h"
 #include <osl_types.h>
-#include <osl_bio.h>
+#include "bio.h"
 
 void mddrc_init_winbond_166M()
 {
