@@ -1,5 +1,3 @@
-
-
 #ifndef __OSL_BIO_H
 #define __OSL_BIO_H
 
@@ -27,4 +25,3 @@ static __inline__ unsigned readl(unsigned addr)
 }
 
 #endif	/* __OSL_BIO_H */
-
