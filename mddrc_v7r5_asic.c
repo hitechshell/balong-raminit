@@ -1,4 +1,4 @@
-
+#include "timer.h"
 
 #include <product_config.h>
 #include <osl_types.h>
@@ -11,8 +11,6 @@
 #ifndef min
 #define min(a,b)        ((a) < (b) ? (a) : (b))
 #endif
-
-#define CFG_CLK_CPU_M3_BOOT (120*1000*1000)
 
 const unsigned ddr_freq_type[DDR_FREQ_MAX] = {111,       133,       166,       200,       266,       333,       400,       450,       533};
 const unsigned a9pll_ctrl1[DDR_FREQ_MAX] =   {0x6d5555,  0x855555,  0x6d5555,  0x555555,  0x855555,  0x6d5555,  0x555555,  0xc00000,  0x855555};
@@ -78,17 +76,6 @@ struct ddrc_timing g_ddrc_timing[DDR_FREQ_MAX] = {
                       0x18340705,0x11643,   0xFF0A0000,0x1B704A00,0xC000},
 #endif
 };
-
-void udelay(unsigned int us)
-{
-#ifndef BSP_CONFIG_EDA
-	while(us--) {
-		unsigned long t = (CFG_CLK_CPU_M3_BOOT/3)/1000000;
-		while(t--)
-			__asm__ __volatile__("nop");
-	}
-#endif
-}
 
 int mddrc_freq_init(PLL_DIV_CTRL ddr_freq,unsigned int rank_sum)
 {
@@ -355,8 +342,6 @@ void a9pll_div_ctrl(PLL_DIV_CTRL ddr_freq)
 	osl_reg_set_bit((void *)(0x90000000 + 0x208), 8, 8, reg); /*恢复切频前读出的pll_ctrl值*/
 	osl_reg_set_bit((void *)(0x90000000 + 0x34), 0, 3, 0x8); /*关闭PERIPLL输入参考时钟*/
 }
-
-extern void udelay(unsigned int us);
 
 void pmic_volt_ctrl(void)
 {

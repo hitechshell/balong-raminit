@@ -1,22 +1,8 @@
-
-
 #include <hi_syscrg.h>
 #include <soc_memmap.h>
 #include "product_config.h"
 #include <osl_types.h>
 #include <osl_bio.h>
-
-#define CFG_CLK_CPU_M3_BOOT (120*1000*1000)
-void udelay(unsigned int us)
-{
-#ifndef BSP_CONFIG_EDA
-    while(us--) {
-		unsigned long t = (CFG_CLK_CPU_M3_BOOT/3)/1000000;
-		while(t--)
-			__asm__ __volatile__("nop");
-	}
-#endif
-}
 
 void mddrc_init(void)
 {

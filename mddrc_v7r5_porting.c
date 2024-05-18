@@ -1,4 +1,4 @@
-
+#include "timer.h"
 
 #include <hi_syscrg.h>
 #include <soc_memmap.h>
@@ -6,20 +6,10 @@
 #include <osl_types.h>
 #include <osl_bio.h>
 
-#define CFG_CLK_CPU_M3_BOOT (120*1000*1000)
 #define V7R5_PORTING        0x6950A100
 #define V7R5_ASIC           0x69500100
 #define EMU_PALADIN         0x6950E100
 #define EMU_ZEBU            0x6950E1A0
-
-void udelay(unsigned int us)
-{
-	while(us--) {
-		unsigned long t = (CFG_CLK_CPU_M3_BOOT/3)/1000000;
-		while(t--)
-			__asm__ __volatile__("nop");
-	}
-}
 
 void mddrc_init_emu()
 {
