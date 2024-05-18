@@ -5,6 +5,8 @@
 #include <product_config.h>
 #include "bio.h"
 
+#define HI_CRG_CTRL14_OFFSET 0x38
+
 void mddrc_init()
 {
 	unsigned reg;

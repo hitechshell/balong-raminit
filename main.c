@@ -13,8 +13,6 @@
 
 #define MDDRC_REGBASE_ADR  0x90020000
 
-#define HI_CRG_CTRL14_OFFSET 0x38
-
 
 int main(void);
 void nmi_handler(void);
