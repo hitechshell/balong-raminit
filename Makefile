@@ -1,3 +1,5 @@
+include config/balong_product_config.mk
+
 CC		= $(CROSS_COMPILE)gcc
 AR    	= $(CROSS_COMPILE)ar
 AS		= $(CROSS_COMPILE)as
